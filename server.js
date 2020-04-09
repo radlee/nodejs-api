@@ -13,18 +13,28 @@ const server = http.createServer((req, res) => {
   }
   
   if (url === '/message' && method === 'POST' ) {
-    fs.writeFileSync('message.txt', 'Dummy');
-    res.statusCode = 302;
-    res.setHeader('Location', '/');
-    return res.end();
+    const body = [];
+    req.on('data', (chunk) => {
+      body.push(chunk)
+    });
+    return req.on('end', ()=> {
+      const parseBody = Buffer.concat(body).toString();
+      const message = parseBody.split('=')[1];
+      fs.writeFile('message.txt', message, (err) => {
+        res.statusCode = 302; 
+        res.setHeader('Location', '/');
+        return res.end()
+      });
+    });
+    ;
   }
 
-    res.setHeader('Content-Type', 'text/html');
-    res.write('<html>');
-    res.write('<head><title>My First Complext Page</title><head>');
-    res.write('<body><h1>Hello From NodeJs Server</h1></body>');
-    res.write('</html>');
-    res.end();
+  res.setHeader('Content-Type', 'text/html');
+  res.write('<html>');
+  res.write('<head><title>My First Complext Page</title><head>');
+  res.write('<body><h1>Hello From NodeJs Server</h1></body>');
+  res.write('</html>');
+  res.end();
  
 });
 
