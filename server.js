@@ -20,7 +20,8 @@ app.use(shopRoutes);
 
 app.use((req, res, next) => {
     res.render('404', { 
-        pageTitle: 'Page Not Found'
+        pageTitle: '404',
+        path: '/admin/404', 
     });
 });
 
