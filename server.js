@@ -15,8 +15,10 @@ const shopRoutes = require('./routes/shop');
 app.use(bodyParser.urlencoded({ extended : false }));
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public/img')));
 
 app.use('/admin', adminRoutes);
+app.use('/admin/products', adminRoutes);
 app.use(shopRoutes);
 
 app.use(errorController.get404);

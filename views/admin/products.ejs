@@ -1,13 +1,15 @@
-<%- include('includes/head.ejs') %>
+<%- include('../includes/head.ejs') %>
 
 <link rel="stylesheet" href="/css/product.css">
+<link rel="stylesheet" href="/css/table.css">
 </head>
 
 <body>
 
-    <%- include('includes/navigation.ejs') %>
+    <%- include('../includes/navigation.ejs') %>
 
     <main>
+        <h1 class="heading">Manage <span class="heading-span" >Products</span></h1>
         <% if(prods.length > 0) { %>
             <div class="grid"> 
                 <% for (let product of prods) { %>
@@ -16,14 +18,18 @@
                             <h1 class="product__title"><%= product.title %></h1>
                         </header>
                         <div class="card__image">
-                            <img src="https://cdn.pixabay.com/photo/2016/03/27/19/32/blur-1283865__340.jpg" alt="A Book">
+                            <!-- <img src="/img/img2.jpg" alt="lee"> -->
+                            <img src="<%= product.imageUrl %>" alt="<%= product.title %>">
                         </div>
                         <div class="card__content">
                             <h2 class="product__price">R49.99</h2>
                             <p class="product__description">A very interesting book about so many even more interesting things!</p>
                         </div>
                         <div class="card__actions">
-                            <button class="btn">Add to Cart</button>
+                            <a href="/admin/edit-product/" class="btn">Edit</a>
+                            <form action="/admin/delete-products/" method="POST">
+                                <button class="btn" type="submit">Delete</button>
+                            </form>
                         </div>
                     </article>
                 <% } %>
@@ -33,4 +39,4 @@
         <% } %>
     </main>
 
-<%- include('includes/end.ejs') %>
+<%- include('../includes/end.ejs') %>
